@@ -1,3 +1,5 @@
+import data.DataInput;
+
 public class Test {
     public int addInt(int a, int b){
         int sum;
