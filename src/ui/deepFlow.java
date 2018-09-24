@@ -7,6 +7,7 @@ public class deepFlow {
 
     DataInput input = new DataInput();
 
+    // EFFECTS: get directory name from user input
     public String scanFile(){
         Scanner reader = new Scanner(System.in);
         System.out.println("Please specify the directory of *.fcs files: ");

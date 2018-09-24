@@ -15,6 +15,7 @@ public class DataInput {
         this.dirname = dirname;
     }
 
+    //EFFECTS: return name of directory containing flow data files
     public String getDirectory(){
         if (Objects.equals(this.dirname, "")){
             throw new java.lang.RuntimeException("Directory has not been set yet");
@@ -23,6 +24,7 @@ public class DataInput {
         }
     }
 
+    // EFFECTS: returns a list of .csv filenames in the directory
     public ArrayList getCsvList(){
         // Check to see if directory has been specified
         ArrayList<String> csvList = new ArrayList<>();
@@ -44,17 +46,35 @@ public class DataInput {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: reads .csv files in directory
+    //          create a Flow object containing data from all files
     public void readCSV(ArrayList<String> csvList){
         int numFiles = csvList.size();
-        flowData flow = new flowData();
+
         // Read each file in the list
 
         for(int i = 0; i < numFiles; i++){
             File file = new File(csvList.get(i));
             try {
                 Scanner scanner = new Scanner(file);
-                scanner.useDelimiter(",");
+                //scanner.useDelimiter(",");
+
                 while (scanner.hasNext()) {
+                    String row = scanner.nextLine();
+                    String[] rowList = row.split(",");
+                    System.out.println(rowList[0]);
+                    if(i==0){
+                        flowData flow = new flowData(rowList.length);
+                    }
+                    for(int j=0; j < rowList.length; j++){
+                        System.out.println(rowList.length);
+                        float cell = Float.parseFloat(rowList[j]);
+                        System.out.println(cell);
+                        System.out.println(flow.data.length);
+                        flow.data[j].add(cell);
+                    }
+                    System.out.println(scanner.nextLine());
                     System.out.println(scanner.next());
                 }
                 scanner.close();
